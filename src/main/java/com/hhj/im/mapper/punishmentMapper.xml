@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhj.im.mapper.punishmentMapper" >
+    <resultMap id="BaseResultMap" type="com.hhj.im.entity.s_punishment" >
+        <id column="punishment_id" property="punishment_id" jdbcType="BIGINT" />
+        <result column="student_id" property="student_id" jdbcType="BIGINT" />
+        <result column="levels" property="levels" jdbcType="BIGINT" />
+        <result column="ratify" property="ratify" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="CLOB" />
+        <result column="rec_time" property="rec_time" jdbcType="TIMESTAMP" />
+        <association property="student" column="student_id" javaType="com.hhj.im.entity.student">
+            <id column="student_id" property="student_id" jdbcType="BIGINT"/>
+            <result column="student_name" property="student_name" jdbcType="VARCHAR"/>
+        </association>
+        <association property="s_punishment_codes" column="levels" javaType="com.hhj.im.entity.s_punishment_codes">
+            <id column="p_code" property="p_code" jdbcType="BIGINT"/>
+            <result column="p_description" property="p_description" jdbcType="CLOB"/>
+        </association>
+    </resultMap>
+    <sql id="BaseData">
+        punishment_id,s_punishment.student_id,student.student_name,levels,ratify,description,rec_time,s_punishment_codes.p_description
+    </sql>
+
+    <select id="findPunishmentList" resultMap="BaseResultMap" parameterType="map" >
+        select
+        <include refid="BaseData" />
+        from s_punishment,student,s_punishment_codes
+        where s_punishment.student_id=student.student_id and s_punishment.levels=s_punishment_codes.p_code
+        <if test="student_name != null and student_name != '' " >
+            and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
+        </if>
+
+        limit #{rowNum},#{pageSize}
+
+    </select>
+    <select id="findPunishmentCount" resultType="int" parameterType="java.lang.String" >
+        select count(*) from s_punishment,student
+        where s_punishment.student_id = student.student_id
+        <if test="student_name != null and student_name != '' " >
+            and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
+        </if>
+    </select>
+
+</mapper>

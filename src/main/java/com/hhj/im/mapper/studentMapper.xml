@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhj.im.mapper.studentMapper" >
+    <resultMap id="BaseResultMap" type="com.hhj.im.entity.student" >
+        <id column="student_id" property="student_id" jdbcType="BIGINT" />
+        <result column="student_name" property="student_name" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="class_id" property="class_id" jdbcType="BIGINT" />
+        <result column="dept" property="dept" jdbcType="BIGINT" />
+        <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+        <result column="native_place" property="native_place" jdbcType="VARCHAR" />
+        <association property="s_class" column="class_id" javaType="com.hhj.im.entity.s_class">
+            <id column="class_id" property="class_id" jdbcType="BIGINT"/>
+            <result column="class_name" property="class_name" jdbcType="VARCHAR"/>
+            <result column="monitor" property="monitor" jdbcType="BIGINT"/>
+        </association>
+        <association property="s_dept" column="dept_id" javaType="com.hhj.im.entity.s_dept">
+            <id column="dept_id" property="dept_id" jdbcType="BIGINT"/>
+            <result column="dept_name" property="dept_name" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <sql id="BaseData">
+        student_id,student_name,sex,s_class.class_name,s_dept.dept_name,birthday,native_place
+    </sql>
+
+    <select id="findStudentList" resultMap="BaseResultMap" parameterType="map" >
+        select
+        <include refid="BaseData" />
+        from student,s_class,s_dept
+        where student.class_id = s_class.class_id and student.dept = s_dept.dept_id
+        <if test="student_name != null and student_name != '' " >
+            and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="student_id != null and student_id != ''">
+            and student.student_id = #{student_id,jdbcType=BIGINT}
+        </if>
+        limit #{rowNum},#{pageSize}
+
+    </select>
+    <select id="findStudentCount" resultType="int" parameterType="map" >
+        select count(*) from student
+        <where>
+            <if test="student_name != null and student_name != '' " >
+                student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="student_id != null and student_id != ''">
+                and student.student_id = #{student_id,jdbcType=BIGINT}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="findStudent" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="BaseData" />
+        from student,s_class,s_dept
+        where student.class_id = s_class.class_id and student.dept = s_dept.dept_id
+          and student.student_id = #{student_id,jdbcType=BIGINT}
+    </select>
+
+    <select id="deleteStudent" parameterType="java.lang.String">
+        delete from student
+        where student_id in (${student_id})
+    </select>
+
+    <insert id="addStudent" parameterType="com.hhj.im.entity.student">
+        insert into student(student_id,student_name,sex,class_id,dept,birthday,native_place)
+            value(#{student_id,jdbcType=BIGINT},#{student_name,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},
+                  #{class_id,jdbcType=BIGINT},#{dept,jdbcType=BIGINT},#{birthday,jdbcType=TIMESTAMP},
+                  #{native_place,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateStudent" parameterType="com.hhj.im.entity.student">
+        update student
+        <set >
+            <if test="student_id != null" >
+                student_id = #{student_id,jdbcType=BIGINT},
+            </if>
+            <if test="student_name != null" >
+                student_name = #{student_name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null" >
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="class_id != null" >
+                class_id = #{class_id,jdbcType=BIGINT},
+            </if>
+            <if test="dept != null" >
+                dept = #{dept,jdbcType=BIGINT},
+            </if>
+            <if test="birthday != null" >
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="native_place != null" >
+                native_place = #{native_place,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where student_id = #{student_id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

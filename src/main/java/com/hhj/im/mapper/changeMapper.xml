@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhj.im.mapper.changeMapper" >
+    <resultMap id="BaseResultMap" type="com.hhj.im.entity.s_change" >
+        <id column="change_id" property="change_id" jdbcType="BIGINT" />
+        <result column="student_id" property="student_id" jdbcType="BIGINT" />
+        <result column="change_code" property="change_code" jdbcType="BIGINT" />
+        <result column="description" property="description" jdbcType="CLOB" />
+        <result column="rec_time" property="rec_time" jdbcType="TIMESTAMP" />
+        <association property="student" column="student_id" javaType="com.hhj.im.entity.student">
+            <id column="student_id" property="student_id" jdbcType="BIGINT"/>
+            <result column="student_name" property="student_name" jdbcType="VARCHAR"/>
+        </association>
+        <association property="s_change_codes" column="c_code" javaType="com.hhj.im.entity.s_change_codes">
+            <id column="c_code" property="c_code" jdbcType="BIGINT"/>
+            <result column="c_description" property="c_description" jdbcType="CLOB"/>
+        </association>
+    </resultMap>
+    <sql id="BaseData">
+        change_id,s_change.student_id,s_change.change_code,description,rec_time,student.student_name,s_change_codes.c_description
+    </sql>
+    <select id="findChangeList" resultMap="BaseResultMap" parameterType="map" >
+        select
+        <include refid="BaseData" />
+        from s_change,student,s_change_codes
+        where s_change.student_id = student.student_id and s_change.change_code = s_change_codes.c_code
+        <if test="student_name != null and student_name != '' " >
+            and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
+        </if>
+
+        limit #{rowNum},#{pageSize}
+
+    </select>
+    <select id="findChangeCount" resultType="int" parameterType="java.lang.String" >
+        select count(*) from s_change,student
+        where s_change.student_id = student.student_id
+        <if test="student_name != null and student_name != '' " >
+            and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
+        </if>
+    </select>
+
+</mapper>

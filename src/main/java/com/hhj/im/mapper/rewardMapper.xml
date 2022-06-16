@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhj.im.mapper.rewardMapper" >
+    <resultMap id="BaseResultMap" type="com.hhj.im.entity.s_reward" >
+        <id column="reward_id" property="reward_id" jdbcType="BIGINT" />
+        <result column="student_id" property="student_id" jdbcType="BIGINT" />
+        <result column="levels" property="levels" jdbcType="BIGINT" />
+        <result column="description" property="description" jdbcType="CLOB" />
+        <result column="rec_time" property="rec_time" jdbcType="TIMESTAMP" />
+        <association property="student" column="student_id" javaType="com.hhj.im.entity.student">
+            <id column="student_id" property="student_id" jdbcType="BIGINT"/>
+            <result column="student_name" property="student_name" jdbcType="VARCHAR"/>
+        </association>
+        <association property="s_reward_codes" column="levels" javaType="com.hhj.im.entity.s_reward_codes">
+            <id column="r_code" property="r_code" jdbcType="BIGINT"/>
+            <result column="r_description" property="r_description" jdbcType="CLOB"/>
+        </association>
+    </resultMap>
+    <sql id="BaseData">
+        reward_id,s_reward.student_id,student.student_name,levels,s_reward_codes.r_description,description,rec_time
+    </sql>
+
+    <select id="findRewardList" resultMap="BaseResultMap" parameterType="map" >
+        select
+        <include refid="BaseData" />
+        from s_reward,student,s_reward_codes
+        where s_reward.student_id = student.student_id and s_reward.levels = s_reward_codes.r_code
+        <if test="student_name != null and student_name != '' " >
+            and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
+        </if>
+
+        limit #{rowNum},#{pageSize}
+
+    </select>
+    <select id="findRewardCount" resultType="int" parameterType="java.lang.String" >
+        select count(*) from s_reward,student
+        where s_reward.student_id = student.student_id
+        <if test="student_name != null and student_name != '' " >
+            and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
+        </if>
+    </select>
+
+</mapper>
