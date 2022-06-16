@@ -20,7 +20,7 @@
         </association>
     </resultMap>
     <sql id="BaseData">
-        student_id,student_name,sex,s_class.class_name,s_dept.dept_name,birthday,native_place
+        student_id,student_name,sex,s_class.class_name,s_dept.dept_name,birthday,native_place,student.class_id,student.dept
     </sql>
 
     <select id="findStudentList" resultMap="BaseResultMap" parameterType="map" >
@@ -35,8 +35,8 @@
             and student.student_id = #{student_id,jdbcType=BIGINT}
         </if>
         limit #{rowNum},#{pageSize}
-
     </select>
+
     <select id="findStudentCount" resultType="int" parameterType="map" >
         select count(*) from student
         <where>
@@ -47,7 +47,6 @@
                 and student.student_id = #{student_id,jdbcType=BIGINT}
             </if>
         </where>
-
     </select>
 
     <select id="findStudent" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -58,10 +57,10 @@
           and student.student_id = #{student_id,jdbcType=BIGINT}
     </select>
 
-    <select id="deleteStudent" parameterType="java.lang.String">
+    <delete id="deleteStudent" parameterType="java.lang.String">
         delete from student
         where student_id in (${student_id})
-    </select>
+    </delete>
 
     <insert id="addStudent" parameterType="com.hhj.im.entity.student">
         insert into student(student_id,student_name,sex,class_id,dept,birthday,native_place)

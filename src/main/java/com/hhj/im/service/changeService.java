@@ -12,7 +12,7 @@ public interface changeService {
 
     int addChange(s_change change);
 
-    int deleteChange(Long change_id);
+    int deleteChange(String change_ids);
 
     s_change findChange(Long change_id);
 

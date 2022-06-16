@@ -109,9 +109,9 @@ public class studentController {
             } else {
                 student_ids=student_ids+student_id[i]+",";
             }
-
         }
-        studentService.deleteStudent(student_ids);
+        int result = studentService.deleteStudent(student_ids);
+        response.getWriter().write(JSON.encode(result));
     }
     @RequestMapping("/findStudent")
     public void findStudent(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
@@ -139,9 +139,11 @@ public class studentController {
         student.setClass_id(Long.parseLong(class_id));
         student.setNative_place(native_place);
         student.setBirthday(new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(birthday));
-        studentService.updateStudent(student);
 
+        int result = studentService.updateStudent(student);
+        response.getWriter().write(JSON.encode(result));
 
     }
+
 
 }

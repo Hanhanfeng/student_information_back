@@ -50,12 +50,24 @@ public class changeController {
 
     }
     @RequestMapping("/deleteChange")
-    public void deleteChange(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
-
+    public void deleteChange(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,Long[]> data) throws Exception{
+        Long[] change_id = data.get("ids");
+        String change_ids = "";
+        for (int i =0;i<change_id.length;i++){
+            if (i==change_id.length-1){
+                change_ids=change_ids+change_id[i];
+            } else {
+                change_ids=change_ids+change_id[i]+",";
+            }
+        }
+        changeService.deleteChange(change_ids);
     }
     @RequestMapping("/findChange")
     public void findChange(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
-
+        String change_id = data.get("id");
+        s_change sChange = changeService.findChange(Long.parseLong(change_id));
+        String json = JSON.encode(sChange);
+        response.getWriter().write(json);
     }
 
 

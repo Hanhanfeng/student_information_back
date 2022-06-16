@@ -33,8 +33,8 @@ public class changeServiceImpl implements changeService {
     }
 
     @Override
-    public int deleteChange(Long change_id) {
-        return changeMapper.deleteChange(change_id);
+    public int deleteChange(String change_ids) {
+        return changeMapper.deleteChange(change_ids);
     }
 
     @Override

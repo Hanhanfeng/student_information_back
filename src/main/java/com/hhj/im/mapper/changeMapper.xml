@@ -19,6 +19,7 @@
     <sql id="BaseData">
         change_id,s_change.student_id,s_change.change_code,description,rec_time,student.student_name,s_change_codes.c_description
     </sql>
+
     <select id="findChangeList" resultMap="BaseResultMap" parameterType="map" >
         select
         <include refid="BaseData" />
@@ -27,16 +28,28 @@
         <if test="student_name != null and student_name != '' " >
             and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
         </if>
-
         limit #{rowNum},#{pageSize}
-
     </select>
+
     <select id="findChangeCount" resultType="int" parameterType="java.lang.String" >
         select count(*) from s_change,student
         where s_change.student_id = student.student_id
         <if test="student_name != null and student_name != '' " >
             and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
         </if>
+    </select>
+
+    <delete id="deleteChange" parameterType="java.lang.String">
+        delete from s_change
+        where change_id in (${change_ids})
+    </delete>
+
+    <select id="findChange" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="BaseData"></include>
+        from s_change,student,s_change_codes
+        where s_change.student_id = student.student_id and s_change.change_code = s_change_codes.c_code
+        and change_id = #{change_id,jdbcType=BIGINT}
     </select>
 
 </mapper>

@@ -12,7 +12,7 @@ public interface changeMapper {
 
     int addChange(s_change change);
 
-    int deleteChange(Long change_id);
+    int deleteChange(String change_id);
 
     s_change findChange(Long change_id);
 }
