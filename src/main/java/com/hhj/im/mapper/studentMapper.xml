@@ -20,14 +20,23 @@
         </association>
     </resultMap>
     <sql id="BaseData">
-        student_id,student_name,sex,s_class.class_name,s_dept.dept_name,birthday,native_place,student.class_id,student.dept
+        student_id,
+        student_name,
+        sex,
+        s_class.class_name,
+        s_dept.dept_name,
+        birthday,
+        native_place,
+        student.class_id,
+        student.dept
     </sql>
 
     <select id="findStudentList" resultMap="BaseResultMap" parameterType="map" >
         select
         <include refid="BaseData" />
         from student,s_class,s_dept
-        where student.class_id = s_class.class_id and student.dept = s_dept.dept_id
+        where student.class_id = s_class.class_id
+          and student.dept = s_dept.dept_id
         <if test="student_name != null and student_name != '' " >
             and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
         </if>
@@ -53,7 +62,8 @@
         select
         <include refid="BaseData" />
         from student,s_class,s_dept
-        where student.class_id = s_class.class_id and student.dept = s_dept.dept_id
+        where student.class_id = s_class.class_id
+          and student.dept = s_dept.dept_id
           and student.student_id = #{student_id,jdbcType=BIGINT}
     </select>
 
@@ -96,5 +106,21 @@
         </set>
         where student_id = #{student_id,jdbcType=BIGINT}
     </update>
+
+    <select id="getClassId" resultType="java.lang.Long" parameterType="java.lang.String">
+        select class_id from s_class where class_name = #{class_name,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getDeptId" resultType="java.lang.Long" parameterType="java.lang.String">
+        select dept_id from s_dept where dept_name = #{dept_name,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getDept" resultType="com.hhj.im.entity.s_dept" >
+        select * from s_dept
+    </select>
+
+    <select id="getClassByDept" resultType="com.hhj.im.entity.s_class" parameterType="java.lang.Long">
+        select * from s_class where dept = #{dept,jdbcType=BIGINT}
+    </select>
 
 </mapper>

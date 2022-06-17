@@ -16,22 +16,29 @@
             <result column="r_description" property="r_description" jdbcType="CLOB"/>
         </association>
     </resultMap>
+
     <sql id="BaseData">
-        reward_id,s_reward.student_id,student.student_name,levels,s_reward_codes.r_description,description,rec_time
+        reward_id,
+        s_reward.student_id,
+        student.student_name,
+        levels,
+        s_reward_codes.r_description,
+        description,
+        rec_time
     </sql>
 
     <select id="findRewardList" resultMap="BaseResultMap" parameterType="map" >
         select
         <include refid="BaseData" />
         from s_reward,student,s_reward_codes
-        where s_reward.student_id = student.student_id and s_reward.levels = s_reward_codes.r_code
+        where s_reward.student_id = student.student_id
+          and s_reward.levels = s_reward_codes.r_code
         <if test="student_name != null and student_name != '' " >
             and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
         </if>
-
         limit #{rowNum},#{pageSize}
-
     </select>
+
     <select id="findRewardCount" resultType="int" parameterType="java.lang.String" >
         select count(*) from s_reward,student
         where s_reward.student_id = student.student_id

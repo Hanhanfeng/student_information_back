@@ -1,5 +1,7 @@
 package com.hhj.im.service;
 
+import com.hhj.im.entity.s_class;
+import com.hhj.im.entity.s_dept;
 import com.hhj.im.entity.student;
 
 import java.util.List;
@@ -20,4 +22,12 @@ public interface studentService {
 
 
     Integer updateStudent(student student);
+
+    Long getClassId(String class_name);
+
+    Long getDeptId(String dept_name);
+
+    List<s_dept> getDept();
+
+    List<s_class> getClassByDept(long dept);
 }

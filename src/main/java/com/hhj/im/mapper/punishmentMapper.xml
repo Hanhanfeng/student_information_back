@@ -18,14 +18,22 @@
         </association>
     </resultMap>
     <sql id="BaseData">
-        punishment_id,s_punishment.student_id,student.student_name,levels,ratify,description,rec_time,s_punishment_codes.p_description
+        punishment_id,
+        s_punishment.student_id,
+        student.student_name,
+        levels,
+        ratify,
+        description,
+        rec_time,
+        s_punishment_codes.p_description
     </sql>
 
     <select id="findPunishmentList" resultMap="BaseResultMap" parameterType="map" >
         select
         <include refid="BaseData" />
         from s_punishment,student,s_punishment_codes
-        where s_punishment.student_id=student.student_id and s_punishment.levels=s_punishment_codes.p_code
+        where s_punishment.student_id=student.student_id
+          and s_punishment.levels=s_punishment_codes.p_code
         <if test="student_name != null and student_name != '' " >
             and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
         </if>

@@ -17,14 +17,21 @@
         </association>
     </resultMap>
     <sql id="BaseData">
-        change_id,s_change.student_id,s_change.change_code,description,rec_time,student.student_name,s_change_codes.c_description
+        change_id,
+        s_change.student_id,
+        s_change.change_code,
+        description,
+        rec_time,
+        student.student_name,
+        s_change_codes.c_description
     </sql>
 
     <select id="findChangeList" resultMap="BaseResultMap" parameterType="map" >
         select
         <include refid="BaseData" />
         from s_change,student,s_change_codes
-        where s_change.student_id = student.student_id and s_change.change_code = s_change_codes.c_code
+        where s_change.student_id = student.student_id
+          and s_change.change_code = s_change_codes.c_code
         <if test="student_name != null and student_name != '' " >
             and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
         </if>
@@ -48,7 +55,8 @@
         select
         <include refid="BaseData"></include>
         from s_change,student,s_change_codes
-        where s_change.student_id = student.student_id and s_change.change_code = s_change_codes.c_code
+        where s_change.student_id = student.student_id
+          and s_change.change_code = s_change_codes.c_code
         and change_id = #{change_id,jdbcType=BIGINT}
     </select>
 

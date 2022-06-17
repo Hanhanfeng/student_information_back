@@ -1,6 +1,8 @@
 package com.hhj.im.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hhj.im.entity.s_class;
+import com.hhj.im.entity.s_dept;
 import com.hhj.im.entity.student;
 import com.hhj.im.service.studentService;
 import com.hhj.im.util.JSON;
@@ -28,6 +30,7 @@ public class studentController {
     @Autowired
     private studentService studentService;
 
+    //获取学生信息列表，可传入分页信息和搜索信息（name，id）
     @RequestMapping(value = "/findStudentList",method = RequestMethod.POST)
     public void findStudentList(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
         String pageIndex=data.get("pageNum");//页面索引，0：第一页，1：第二页，依次类推
@@ -72,6 +75,7 @@ public class studentController {
         response.getWriter().write(JSON.encode(info));
     }*/
 
+    //添加学生信息
     @RequestMapping(value = "/addStudent",method = RequestMethod.POST)
     public void addStudent(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
         String student_id = data.get("id");
@@ -97,8 +101,9 @@ public class studentController {
         } else {
             response.getWriter().write(JSON.encode(0));
         }
-
     }
+
+    //接收学生学号删除信息
     @RequestMapping(value = "/deleteStudent",method = RequestMethod.DELETE)
     public void deleteStudent(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String, Long[]>data) throws Exception{
         Long[] student_id = data.get("ids");
@@ -113,6 +118,8 @@ public class studentController {
         int result = studentService.deleteStudent(student_ids);
         response.getWriter().write(JSON.encode(result));
     }
+
+    //通过id获取学生信息
     @RequestMapping("/findStudent")
     public void findStudent(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
         String student_id = data.get("id");
@@ -121,6 +128,7 @@ public class studentController {
         response.getWriter().write(json);
     }
 
+    //修改学生信息
     @RequestMapping(value = "/updateStudent",method = RequestMethod.POST)
     public void updateStudent(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
         String student_id = data.get("id");
@@ -144,6 +152,25 @@ public class studentController {
         response.getWriter().write(JSON.encode(result));
 
     }
+
+    //获取所有院系
+    @RequestMapping("getDept")
+    public void getDept(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
+        List<s_dept> deptList = studentService.getDept();
+        String json = JSON.encode(deptList);
+        response.getWriter().write(json);
+    }
+
+    //通过院系id获取院系班级
+    @RequestMapping("getClassByDept")
+    public void getClassById(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
+        String dept = data.get("dept");
+        List<s_class> classList = studentService.getClassByDept(Long.parseLong(dept));
+        String json = JSON.encode(classList);
+        response.getWriter().write(json);
+    }
+
+
 
 
 }

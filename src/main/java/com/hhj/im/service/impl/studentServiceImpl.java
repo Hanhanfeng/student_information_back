@@ -1,6 +1,8 @@
 package com.hhj.im.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.hhj.im.entity.s_class;
+import com.hhj.im.entity.s_dept;
 import com.hhj.im.entity.student;
 import com.hhj.im.mapper.studentMapper;
 import com.hhj.im.service.studentService;
@@ -52,5 +54,25 @@ public class studentServiceImpl implements studentService {
     @Override
     public Integer updateStudent(student student) {
         return studentMapper.updateStudent(student);
+    }
+
+    @Override
+    public Long getClassId(String class_name) {
+        return studentMapper.getClassId(class_name);
+    }
+
+    @Override
+    public Long getDeptId(String dept_name) {
+        return studentMapper.getDeptId(dept_name);
+    }
+
+    @Override
+    public List<s_dept> getDept() {
+        return studentMapper.getDept();
+    }
+
+    @Override
+    public List<s_class> getClassByDept(long dept) {
+        return studentMapper.getClassByDept(dept);
     }
 }
