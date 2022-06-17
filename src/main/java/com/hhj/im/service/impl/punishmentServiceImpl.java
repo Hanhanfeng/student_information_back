@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -22,8 +23,8 @@ public class punishmentServiceImpl implements punishmentService {
     }
 
     @Override
-    public int findPunishmentCount(String student_name) {
-        return punishmentMapper.findPunishmentCount(student_name);
+    public int findPunishmentCount(Map map) {
+        return punishmentMapper.findPunishmentCount(map);
     }
 
     @Override

@@ -37,15 +37,20 @@
         <if test="student_name != null and student_name != '' " >
             and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
         </if>
-
+        <if test="student_id != null and student_id != ''">
+            and student.student_id = #{student_id,jdbcType=BIGINT}
+        </if>
         limit #{rowNum},#{pageSize}
-
     </select>
-    <select id="findPunishmentCount" resultType="int" parameterType="java.lang.String" >
+
+    <select id="findPunishmentCount" resultType="int" parameterType="map" >
         select count(*) from s_punishment,student
         where s_punishment.student_id = student.student_id
         <if test="student_name != null and student_name != '' " >
             and student.student_name like "%"#{student_name,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="student_id != null and student_id != ''">
+            and student.student_id = #{student_id,jdbcType=BIGINT}
         </if>
     </select>
 

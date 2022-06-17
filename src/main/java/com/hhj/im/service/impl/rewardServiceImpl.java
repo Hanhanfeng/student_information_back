@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -22,7 +23,7 @@ public class rewardServiceImpl implements rewardService {
     }
 
     @Override
-    public int findRewardCount(String student_name) {
-        return rewardMapper.findRewardCount(student_name);
+    public int findRewardCount(Map map) {
+        return rewardMapper.findRewardCount(map);
     }
 }

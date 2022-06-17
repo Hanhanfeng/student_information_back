@@ -8,7 +8,7 @@ import java.util.Map;
 public interface changeMapper {
     List<s_change> findChangeList(Map map);
 
-    int findChangeCount(String student_name);
+    int findChangeCount(Map map);
 
     int addChange(s_change change);
 

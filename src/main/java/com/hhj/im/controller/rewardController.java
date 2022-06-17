@@ -27,15 +27,17 @@ public class rewardController {
         String pageIndex=data.get("pageNum");//页面索引，0：第一页，1：第二页，依次类推
         String pageSize=data.get("pageSize");//每页多少条
         String student_name=data.get("name");//搜索功能：获取搜索参数值（用户姓名）
+        String student_id = data.get("id");
 
         HashMap mapParam=new HashMap();
         mapParam.put("pageSize", Integer.parseInt(pageSize));
         mapParam.put("rowNum", Integer.parseInt(pageSize)*(Integer.parseInt(pageIndex)-1));
         mapParam.put("student_name", student_name);
+        mapParam.put("student_id",student_id);
 
 
         List<s_reward> rewardList = rewardService.findRewardList(mapParam);
-        int count=rewardService.findRewardCount(student_name);//查询数据总数，用于分页
+        int count=rewardService.findRewardCount(mapParam);//查询数据总数，用于分页
 
         HashMap map=new HashMap();
         map.put("total", count);

@@ -23,8 +23,8 @@ public class changeServiceImpl implements changeService {
     }
 
     @Override
-    public int findChangeCount(String student_name) {
-        return changeMapper.findChangeCount(student_name);
+    public int findChangeCount(Map map) {
+        return changeMapper.findChangeCount(map);
     }
 
     @Override
