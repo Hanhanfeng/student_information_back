@@ -158,15 +158,15 @@ public class studentController {
     }
 
     //获取所有院系
-    @RequestMapping("getDept")
-    public void getDept(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
+    @RequestMapping(value = "getDept",method = RequestMethod.POST)
+    public void getDept(HttpServletRequest request, HttpServletResponse response) throws Exception{
         List<s_dept> deptList = studentService.getDept();
         String json = JSON.encode(deptList);
         response.getWriter().write(json);
     }
 
     //通过院系id获取院系班级
-    @RequestMapping("getClassByDept")
+    @RequestMapping(value = "getClassByDept",method = RequestMethod.POST)
     public void getClassById(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
         String dept = data.get("dept");
         String name = data.get("deptName");
