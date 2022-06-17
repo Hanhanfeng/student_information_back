@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface rewardMapper {
-    List<s_reward> findRewardList(HashMap mapParam);
+    List<s_reward> findRewardList(Map map);
 
     int findRewardCount(Map map);
 }

@@ -18,7 +18,7 @@ public class rewardServiceImpl implements rewardService {
     @Resource
     private rewardMapper rewardMapper;
     @Override
-    public List<s_reward> findRewardList(HashMap mapParam) {
+    public List<s_reward> findRewardList(Map mapParam) {
         return rewardMapper.findRewardList(mapParam);
     }
 
