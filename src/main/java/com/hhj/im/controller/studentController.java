@@ -172,7 +172,7 @@ public class studentController {
         String name = data.get("deptName");
         Long dept0;
 
-        if (name!=null && name!=""){
+        if (name!=null && !name.equals("")){
             dept0 = studentService.getDeptId(name);
         } else {
             dept0=Long.parseLong(dept);
