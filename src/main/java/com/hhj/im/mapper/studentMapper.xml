@@ -119,7 +119,7 @@
         select * from s_dept
     </select>
 
-    <select id="getClassByDept" resultType="com.hhj.im.entity.s_class" parameterType="map">
+    <select id="getClassByDept" resultType="com.hhj.im.entity.s_class" parameterType="java.lang.Long">
         select s_class.class_id,s_class.class_name from s_class,
         <where>
             <if test="dept!=NULL and dept!=''">
