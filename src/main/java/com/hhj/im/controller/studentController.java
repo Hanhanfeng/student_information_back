@@ -81,17 +81,21 @@ public class studentController {
         String student_id = data.get("id");
         String student_name = data.get("name");
         String sex = data.get("sex");
-        String class_id = data.get("classId");
-        String dept = data.get("dept");
+//        String class_id = data.get("classId");
+//        String dept = data.get("dept");
         String birthday = data.get("birthday");
         String native_place = data.get("place");
+        String dept_name = data.get("deptName");
+        String class_name = data.get("className");
+        Long dept = studentService.getDeptId(dept_name);
+        Long class_id = studentService.getClassId(class_name);
 
         student student = new student();
         student.setStudent_id(Long.parseLong(student_id));
         student.setStudent_name(student_name);
         student.setSex(sex);
-        student.setDept(Long.parseLong(dept));
-        student.setClass_id(Long.parseLong(class_id));
+        student.setDept(dept);
+        student.setClass_id(class_id);
         student.setNative_place(native_place);
         student.setBirthday(new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(birthday));
         student student0 = studentService.findStudent(Long.parseLong(student_id));
