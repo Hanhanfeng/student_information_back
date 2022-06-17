@@ -55,9 +55,19 @@ public class rewardController {
     public void addReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
 
     }
-    @RequestMapping(value = "/deleteReward",method = RequestMethod.POST)
-    public void deleteReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
-
+    @RequestMapping(value = "/deleteReward",method = RequestMethod.DELETE)
+    public void deleteReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,Long[]> data) throws Exception{
+        Long[] reward_id = data.get("ids");
+        String reward_ids = "";
+        for (int i =0;i<reward_id.length;i++){
+            if (i==reward_id.length-1){
+                reward_ids=reward_ids+reward_id[i];
+            } else {
+                reward_ids=reward_ids+reward_id[i]+",";
+            }
+        }
+        int result = rewardService.deleteReward(reward_ids);
+        response.getWriter().write(JSON.encode(result));
     }
     @RequestMapping(value = "/findReward",method = RequestMethod.POST)
     public void findReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{

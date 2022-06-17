@@ -53,4 +53,9 @@
         </if>
     </select>
 
+    <delete id="deleteReward" parameterType="java.lang.String">
+        delete from s_reward
+        where reward_id in (${reward_ids})
+    </delete>
+
 </mapper>

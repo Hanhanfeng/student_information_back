@@ -10,4 +10,6 @@ public interface rewardService {
     List<s_reward> findRewardList(Map mapParam);
 
     int findRewardCount(Map map);
+
+    Integer deleteReward(String reward_ids);
 }

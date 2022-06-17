@@ -26,4 +26,9 @@ public class rewardServiceImpl implements rewardService {
     public int findRewardCount(Map map) {
         return rewardMapper.findRewardCount(map);
     }
+
+    @Override
+    public Integer deleteReward(String reward_ids) {
+        return rewardMapper.deleteReward(reward_ids);
+    }
 }
