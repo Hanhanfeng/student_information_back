@@ -120,16 +120,9 @@
     </select>
 
     <select id="getClassByDept" resultType="com.hhj.im.entity.s_class" parameterType="java.lang.Long">
-        select s_class.class_id,s_class.class_name from s_class,
-        <where>
-            <if test="dept!=NULL and dept!=''">
-                dept = #{dept,jdbcType=BIGINT}
-            </if>
-            <if test="dept_name!=NULL and dept_name!=''">
+        select s_class.class_id,s_class.class_name from s_class
+        where dept = #{dept,jdbcType=BIGINT}
 
-            </if>
-
-        </where>
     </select>
 
 </mapper>
