@@ -31,4 +31,14 @@ public class rewardServiceImpl implements rewardService {
     public Integer deleteReward(String reward_ids) {
         return rewardMapper.deleteReward(reward_ids);
     }
+
+    @Override
+    public Integer getRCode(String levels) {
+        return rewardMapper.getRCode(levels);
+    }
+
+    @Override
+    public int addReward(s_reward s_reward) {
+        return rewardMapper.sddReward(s_reward);
+    }
 }

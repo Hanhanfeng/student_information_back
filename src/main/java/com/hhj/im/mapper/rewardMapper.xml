@@ -58,4 +58,14 @@
         where reward_id in (${reward_ids})
     </delete>
 
+    <select id="getRCode" resultType="int" parameterType="java.lang.String">
+        select r_code from s_reward_codes
+        where r_description = #{levels}
+    </select>
+
+    <insert id="addReward" parameterType="com.hhj.im.entity.s_reward">
+        insert into s_reward(student_id,levels,description)
+        value (#{student_id,jdbcType=BIGINT},#{levels,jdbcType=BIGINT},#{description,jdbcType=CLOB})
+    </insert>
+
 </mapper>

@@ -12,4 +12,8 @@ public interface rewardService {
     int findRewardCount(Map map);
 
     Integer deleteReward(String reward_ids);
+
+    Integer getRCode(String levels);
+
+    int addReward(s_reward s_reward);
 }

@@ -12,4 +12,8 @@ public interface rewardMapper {
     int findRewardCount(Map map);
 
     Integer deleteReward(String reward_ids);
+
+    Integer getRCode(String levels);
+
+    int sddReward(s_reward s_reward);
 }

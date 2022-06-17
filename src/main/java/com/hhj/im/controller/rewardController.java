@@ -1,6 +1,7 @@
 package com.hhj.im.controller;
 
 import com.hhj.im.entity.s_reward;
+import com.hhj.im.entity.student;
 import com.hhj.im.service.rewardService;
 import com.hhj.im.util.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,18 @@ public class rewardController {
 
     @RequestMapping(value = "/addReward",method = RequestMethod.POST)
     public void addReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
+        String student_id = data.get("id");
+        String levels = data.get("levels");
+        String description = data.get("description");
+        Integer level = rewardService.getRCode(levels);
+
+        s_reward s_reward = new s_reward();
+        s_reward.setStudent_id(Long.parseLong(student_id));
+        s_reward.setLevels(level);
+        s_reward.setDescription(description);
+
+        int result = rewardService.addReward(s_reward);
+        response.getWriter().write(JSON.encode(result));
 
     }
     @RequestMapping(value = "/deleteReward",method = RequestMethod.DELETE)
