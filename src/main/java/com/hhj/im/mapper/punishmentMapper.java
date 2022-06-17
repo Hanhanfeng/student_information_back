@@ -9,4 +9,6 @@ public interface punishmentMapper {
     List<s_punishment> findPunishmentList(HashMap mapParam);
 
     int findPunishmentCount(String student_name);
+
+    Integer deletePunishment(String punishment_ids);
 }

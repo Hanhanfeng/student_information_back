@@ -72,7 +72,7 @@ public class studentServiceImpl implements studentService {
     }
 
     @Override
-    public List<s_class> getClassByDept(long dept) {
+    public List<s_class> getClassByDept(Long dept) {
         return studentMapper.getClassByDept(dept);
     }
 }

@@ -119,8 +119,17 @@
         select * from s_dept
     </select>
 
-    <select id="getClassByDept" resultType="com.hhj.im.entity.s_class" parameterType="java.lang.Long">
-        select * from s_class where dept = #{dept,jdbcType=BIGINT}
+    <select id="getClassByDept" resultType="com.hhj.im.entity.s_class" parameterType="map">
+        select s_class.class_id,s_class.class_name from s_class,
+        <where>
+            <if test="dept!=NULL and dept!=''">
+                dept = #{dept,jdbcType=BIGINT}
+            </if>
+            <if test="dept_name!=NULL and dept_name!=''">
+
+            </if>
+
+        </where>
     </select>
 
 </mapper>

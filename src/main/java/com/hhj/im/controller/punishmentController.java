@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,8 @@ public class punishmentController {
     @Autowired
     private punishmentService punishmentService;
 
-    @RequestMapping("/findPunishmentList")
+    //获取学生惩罚信息
+    @RequestMapping(value = "/findPunishmentList",method = RequestMethod.POST)
     public void findPunishmentList(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
         String pageIndex=data.get("pageNum");//页面索引，0：第一页，1：第二页，依次类推
         String pageSize=data.get("pageSize");//每页多少条
@@ -45,19 +47,43 @@ public class punishmentController {
         //向前端返回数据
         response.getWriter().write(json);
     }
-    @RequestMapping("/addPunishment")
+
+    //添加惩罚信息
+    @RequestMapping(value = "/addPunishment",method = RequestMethod.POST)
     public void addPunishment(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
 
     }
-    @RequestMapping("/deletePunishment")
-    public void deletePunishment(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
 
+    //删除惩罚信息
+    @RequestMapping(value = "/deletePunishment",method = RequestMethod.DELETE)
+    public void deletePunishment(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,Long[]> data) throws Exception{
+        Long[] punishmen_id = data.get("ids");
+        String punishment_ids = "";
+        for (int i =0;i<punishmen_id.length;i++){
+            if (i==punishmen_id.length-1){
+                punishment_ids=punishment_ids+punishmen_id[i];
+            } else {
+                punishment_ids=punishment_ids+punishmen_id[i]+",";
+            }
+        }
+        punishmentService.deletePunishment(punishment_ids);
     }
-    @RequestMapping("/findPunishment")
+
+    //获取惩罚信息
+    @RequestMapping(value = "/findPunishment",method = RequestMethod.POST)
     public void findPunishment(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
 
     }
 
+    //更新惩罚信息
+    @RequestMapping(value = "updatePunishment",method = RequestMethod.POST)
+    public void updatePunishment(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data)throws Exception{
 
+    }
 
+    //将惩罚置无效
+    @RequestMapping
+    public void setPunishmentF(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data)throws Exception{
+
+    }
 }

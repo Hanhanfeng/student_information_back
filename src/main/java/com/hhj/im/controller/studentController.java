@@ -165,7 +165,16 @@ public class studentController {
     @RequestMapping("getClassByDept")
     public void getClassById(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
         String dept = data.get("dept");
-        List<s_class> classList = studentService.getClassByDept(Long.parseLong(dept));
+        String name = data.get("deptName");
+        Long dept0;
+
+        if (name!=null && name!=""){
+            dept0 = studentService.getDeptId(name);
+        } else {
+            dept0=Long.parseLong(dept);
+        }
+
+        List<s_class> classList = studentService.getClassByDept(dept0);
         String json = JSON.encode(classList);
         response.getWriter().write(json);
     }

@@ -27,5 +27,5 @@ public interface studentMapper {
 
     List<s_dept> getDept();
 
-    List<s_class> getClassByDept(long dept);
+    List<s_class> getClassByDept(Long dept);
 }

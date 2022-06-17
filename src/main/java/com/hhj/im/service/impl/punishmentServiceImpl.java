@@ -25,4 +25,9 @@ public class punishmentServiceImpl implements punishmentService {
     public int findPunishmentCount(String student_name) {
         return punishmentMapper.findPunishmentCount(student_name);
     }
+
+    @Override
+    public Integer deletePunishment(String punishment_ids) {
+        return punishmentMapper.deletePunishment(punishment_ids);
+    }
 }

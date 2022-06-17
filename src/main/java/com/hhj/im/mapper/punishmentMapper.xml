@@ -49,4 +49,8 @@
         </if>
     </select>
 
+    <delete id="deletePunishment" parameterType="java.lang.String">
+        delete from s_punishment where punishment_id in (${punishment_ids})
+    </delete>
+
 </mapper>

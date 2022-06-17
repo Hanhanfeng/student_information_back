@@ -21,6 +21,7 @@ public class rewardController {
     @Autowired
     private rewardService rewardService;
 
+    //获取奖励信息
     @RequestMapping("/findRewardList")
     public void findRewardList(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
         String pageIndex=data.get("pageNum");//页面索引，0：第一页，1：第二页，依次类推
@@ -45,6 +46,8 @@ public class rewardController {
         //向前端返回数据
         response.getWriter().write(json);
     }
+
+
     @RequestMapping("/addReward")
     public void addReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
 
