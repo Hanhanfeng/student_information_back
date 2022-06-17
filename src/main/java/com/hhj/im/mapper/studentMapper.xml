@@ -122,7 +122,6 @@
     <select id="getClassByDept" resultType="com.hhj.im.entity.s_class" parameterType="java.lang.Long">
         select s_class.class_id,s_class.class_name from s_class
         where dept = #{dept,jdbcType=BIGINT}
-
     </select>
 
 </mapper>
