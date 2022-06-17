@@ -15,5 +15,5 @@ public interface rewardMapper {
 
     Integer getRCode(String levels);
 
-    int sddReward(s_reward s_reward);
+    int addReward(s_reward s_reward);
 }

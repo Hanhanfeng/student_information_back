@@ -39,6 +39,6 @@ public class rewardServiceImpl implements rewardService {
 
     @Override
     public int addReward(s_reward s_reward) {
-        return rewardMapper.sddReward(s_reward);
+        return rewardMapper.addReward(s_reward);
     }
 }
