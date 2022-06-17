@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +23,7 @@ public class rewardController {
     private rewardService rewardService;
 
     //获取奖励信息
-    @RequestMapping("/findRewardList")
+    @RequestMapping(value = "/findRewardList",method = RequestMethod.POST)
     public void findRewardList(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
         String pageIndex=data.get("pageNum");//页面索引，0：第一页，1：第二页，依次类推
         String pageSize=data.get("pageSize");//每页多少条
@@ -50,15 +51,15 @@ public class rewardController {
     }
 
 
-    @RequestMapping("/addReward")
+    @RequestMapping(value = "/addReward",method = RequestMethod.POST)
     public void addReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
 
     }
-    @RequestMapping("/deleteReward")
+    @RequestMapping(value = "/deleteReward",method = RequestMethod.POST)
     public void deleteReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
 
     }
-    @RequestMapping("/findReward")
+    @RequestMapping(value = "/findReward",method = RequestMethod.POST)
     public void findReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
 
     }
