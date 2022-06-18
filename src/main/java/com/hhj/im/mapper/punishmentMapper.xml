@@ -40,6 +40,7 @@
         <if test="student_id != null and student_id != ''">
             and student.student_id = #{student_id,jdbcType=BIGINT}
         </if>
+        order by punishment_id
         <if test="rowNum!=null and pageSize!=null">
             limit #{rowNum},#{pageSize}
         </if>

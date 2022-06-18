@@ -79,7 +79,9 @@ public class changeController {
                 change_ids=change_ids+change_id[i]+",";
             }
         }
-        changeService.deleteChange(change_ids);
+        int result = changeService.deleteChange(change_ids);
+        response.getWriter().write(JSON.encode(result));
+
     }
 
     //通过id获取相应学籍异动记录
