@@ -44,7 +44,8 @@ public class studentController {
         String pageSize=data.get("pageSize");//每页多少条
         String student_name=data.get("name");//搜索功能：获取搜索参数值（用户姓名）
         String student_id=data.get("id");
-        String dept = data.get("deptId");
+        String deptName = data.get("deptName");
+        Long dept = studentService.getDeptId(deptName);
 
         HashMap mapParam=new HashMap();
         mapParam.put("pageSize", Integer.parseInt(pageSize));
