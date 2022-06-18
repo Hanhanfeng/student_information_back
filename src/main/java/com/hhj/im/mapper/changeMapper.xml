@@ -38,7 +38,7 @@
         <if test="student_id != null and student_id != '' ">
             and student.student_id = #{student_id,jdbcType=BIGINT}
         </if>
-        <if test="rowNum!=null and rowNum!='' and pageSize!=null and Pagesize!=''">
+        <if test="rowNum!=null and pageSize!=null">
             limit #{rowNum},#{pageSize}
         </if>
     </select>
