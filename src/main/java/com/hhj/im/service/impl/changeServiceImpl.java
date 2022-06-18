@@ -28,8 +28,8 @@ public class changeServiceImpl implements changeService {
     }
 
     @Override
-    public int addChange(s_change change) {
-        return changeMapper.addChange(change);
+    public int addChange(s_change s_change) {
+        return changeMapper.addChange(s_change);
     }
 
     @Override

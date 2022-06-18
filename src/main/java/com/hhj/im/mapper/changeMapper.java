@@ -10,7 +10,7 @@ public interface changeMapper {
 
     int findChangeCount(Map map);
 
-    int addChange(s_change change);
+    int addChange(s_change s_change);
 
     int deleteChange(String change_id);
 

@@ -5,7 +5,7 @@
         <id column="reward_id" property="reward_id" jdbcType="BIGINT" />
         <result column="student_id" property="student_id" jdbcType="BIGINT" />
         <result column="levels" property="levels" jdbcType="BIGINT" />
-        <result column="description" property="description" jdbcType="CLOB" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
         <result column="rec_time" property="rec_time" jdbcType="TIMESTAMP" />
         <association property="student" column="student_id" javaType="com.hhj.im.entity.student">
             <id column="student_id" property="student_id" jdbcType="BIGINT"/>
@@ -13,7 +13,7 @@
         </association>
         <association property="s_reward_codes" column="levels" javaType="com.hhj.im.entity.s_reward_codes">
             <id column="r_code" property="r_code" jdbcType="BIGINT"/>
-            <result column="r_description" property="r_description" jdbcType="CLOB"/>
+            <result column="r_description" property="r_description" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
 
@@ -67,7 +67,7 @@
 
     <insert id="addReward" parameterType="com.hhj.im.entity.s_reward">
         insert into s_reward(student_id,levels,description)
-        value (#{student_id,jdbcType=BIGINT},#{levels,jdbcType=BIGINT},#{description,jdbcType=CLOB})
+        value (#{student_id,jdbcType=BIGINT},#{levels,jdbcType=BIGINT},#{description,jdbcType=VARCHAR})
     </insert>
 
 </mapper>

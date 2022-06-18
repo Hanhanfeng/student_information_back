@@ -6,7 +6,7 @@
         <result column="student_id" property="student_id" jdbcType="BIGINT" />
         <result column="levels" property="levels" jdbcType="BIGINT" />
         <result column="ratify" property="ratify" jdbcType="VARCHAR" />
-        <result column="description" property="description" jdbcType="CLOB" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
         <result column="rec_time" property="rec_time" jdbcType="TIMESTAMP" />
         <association property="student" column="student_id" javaType="com.hhj.im.entity.student">
             <id column="student_id" property="student_id" jdbcType="BIGINT"/>
@@ -14,7 +14,7 @@
         </association>
         <association property="s_punishment_codes" column="levels" javaType="com.hhj.im.entity.s_punishment_codes">
             <id column="p_code" property="p_code" jdbcType="BIGINT"/>
-            <result column="p_description" property="p_description" jdbcType="CLOB"/>
+            <result column="p_description" property="p_description" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
     <sql id="BaseData">
@@ -67,7 +67,7 @@
 
     <insert id="addPunishment" parameterType="com.hhj.im.entity.s_punishment">
         insert into s_punishment(student_id,levels,ratify,description)
-            value (#{student_id,jdbcType=BIGINT},#{levels,jdbcType=BIGINT},#{ratify,jdbcType=VARCHAR},#{description,jdbcType=CLOB})
+            value (#{student_id,jdbcType=BIGINT},#{levels,jdbcType=BIGINT},#{ratify,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR})
     </insert>
 
     <update id="setPunishmentTF" parameterType="com.hhj.im.entity.s_punishment">

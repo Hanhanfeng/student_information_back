@@ -58,12 +58,12 @@ public class changeController {
         String description = data.get("description");
         Integer change_code = changeService.getCCode(changeDes);
 
-        s_change sChange = new s_change();
-        sChange.setStudent_id(Long.parseLong(student_id));
-        sChange.setChange_code(change_code);
-        sChange.setDescription(description);
+        s_change s_change = new s_change();
+        s_change.setStudent_id(Long.parseLong(student_id));
+        s_change.setChange_code(change_code);
+        s_change.setDescription(description);
 
-        int result = changeService.addChange(sChange);
+        int result = changeService.addChange(s_change);
         response.getWriter().write(JSON.encode(result));
     }
 

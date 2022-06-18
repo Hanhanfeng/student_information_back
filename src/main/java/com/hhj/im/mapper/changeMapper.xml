@@ -5,7 +5,7 @@
         <id column="change_id" property="change_id" jdbcType="BIGINT" />
         <result column="student_id" property="student_id" jdbcType="BIGINT" />
         <result column="change_code" property="change_code" jdbcType="BIGINT" />
-        <result column="description" property="description" jdbcType="CLOB" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
         <result column="rec_time" property="rec_time" jdbcType="TIMESTAMP" />
         <association property="student" column="student_id" javaType="com.hhj.im.entity.student">
             <id column="student_id" property="student_id" jdbcType="BIGINT"/>
@@ -13,7 +13,7 @@
         </association>
         <association property="s_change_codes" column="c_code" javaType="com.hhj.im.entity.s_change_codes">
             <id column="c_code" property="c_code" jdbcType="BIGINT"/>
-            <result column="c_description" property="c_description" jdbcType="CLOB"/>
+            <result column="c_description" property="c_description" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
     <sql id="BaseData">
@@ -75,7 +75,7 @@
 
     <insert id="addChange" parameterType="com.hhj.im.entity.s_change">
         insert into s_change(student_id,change_code,description)
-        value (#{student_id,jdbcType=BIGINT},#{change_code,jdbcType=BIGINT},#{description,jdbcType=CLOB})
+        value (#{student_id,jdbcType=BIGINT},#{change_code,jdbcType=BIGINT},#{description,jdbcType=VARCHAR})
     </insert>
 
 </mapper>
