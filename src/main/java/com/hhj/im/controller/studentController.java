@@ -169,7 +169,7 @@ public class studentController {
     }
 
     //获取所有院系
-    @RequestMapping(value = "getDept",method = RequestMethod.POST)
+    @RequestMapping(value = "/getDept",method = RequestMethod.POST)
     public void getDept(HttpServletRequest request, HttpServletResponse response) throws Exception{
         List<s_dept> deptList = studentService.getDept();
         String json = JSON.encode(deptList);
@@ -177,7 +177,7 @@ public class studentController {
     }
 
     //通过院系id获取院系班级
-    @RequestMapping(value = "getClassByDept",method = RequestMethod.POST)
+    @RequestMapping(value = "/getClassByDept",method = RequestMethod.POST)
     public void getClassById(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
         String dept = data.get("dept");
         String name = data.get("deptName");
@@ -195,7 +195,7 @@ public class studentController {
     }
 
     //通过学号获取学生的详细信息
-    @RequestMapping(value = "findStudentAllInfo",method = RequestMethod.POST)
+    @RequestMapping(value = "/findStudentAllInfo",method = RequestMethod.POST)
     public void findStudentAllInfo(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
         String student_id = data.get("id");
         student student = studentService.findStudent(Long.parseLong(student_id));

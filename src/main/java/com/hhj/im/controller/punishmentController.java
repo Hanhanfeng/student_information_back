@@ -56,7 +56,7 @@ public class punishmentController {
     public void addPunishment(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
         String student_id = data.get("id");
         String levels = data.get("levels");
-        String ratify = data.get("ratify");
+        String ratify = "T";
         String description = data.get("description");
         Integer level = punishmentService.getPCode(levels);
 
@@ -82,7 +82,8 @@ public class punishmentController {
                 punishment_ids=punishment_ids+punishmen_id[i]+",";
             }
         }
-        punishmentService.deletePunishment(punishment_ids);
+        int result = punishmentService.deletePunishment(punishment_ids);
+        response.getWriter().write(JSON.encode(result));
     }
 
     //获取惩罚信息
@@ -92,7 +93,7 @@ public class punishmentController {
     }
 
     //将惩罚置无效
-    @RequestMapping("/setPunishmentTF")
+    @RequestMapping(value="/setPunishmentTF",method = RequestMethod.POST)
     public void setPunishmentTF(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data)throws Exception{
         String punishment_id = data.get("id");
         String ratify = data.get("ratify");
