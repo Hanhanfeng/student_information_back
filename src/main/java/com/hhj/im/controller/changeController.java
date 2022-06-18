@@ -52,7 +52,7 @@ public class changeController {
     @RequestMapping(value = "/addChange",method = RequestMethod.POST)
     public void addChange(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
         String student_id = data.get("id");
-        String changeDes = data.get("changeDes");
+        String changeDes = data.get("type");
         String description = data.get("description");
         Integer change_code = changeService.getCCode(changeDes);
 
