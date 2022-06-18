@@ -44,12 +44,14 @@ public class studentController {
         String pageSize=data.get("pageSize");//每页多少条
         String student_name=data.get("name");//搜索功能：获取搜索参数值（用户姓名）
         String student_id=data.get("id");
+        String dept = data.get("deptId");
 
         HashMap mapParam=new HashMap();
         mapParam.put("pageSize", Integer.parseInt(pageSize));
         mapParam.put("rowNum", Integer.parseInt(pageSize)*(Integer.parseInt(pageIndex)-1));
         mapParam.put("student_name", student_name);
         mapParam.put("student_id",student_id);
+        mapParam.put("dept",dept);
 
         List<student> studentList = studentService.findStudentList(mapParam);
         int count=studentService.findStudentCount(mapParam);//查询数据总数，用于分页
