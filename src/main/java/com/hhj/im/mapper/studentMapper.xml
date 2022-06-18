@@ -43,7 +43,7 @@
         <if test="student_id != null and student_id != ''">
             and student.student_id = #{student_id,jdbcType=BIGINT}
         </if>
-        <if test="dept!=null and dept!=''">
+        <if test="dept!=null">
             and student.dept = #{dept,jdbcType=BIGINT}
         </if>
         order by class_id,student_id
