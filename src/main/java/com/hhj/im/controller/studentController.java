@@ -218,7 +218,6 @@ public class studentController {
 
         String json = JSON.encode(map);
         response.getWriter().write(json);
-
     }
 
 }

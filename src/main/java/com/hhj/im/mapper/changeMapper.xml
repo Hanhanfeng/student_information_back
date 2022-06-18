@@ -73,4 +73,9 @@
         where c_description = #{changeDes}
     </select>
 
+    <insert id="addChange" parameterType="com.hhj.im.entity.s_change">
+        insert into s_change(student_id,change_code,description)
+        value (#{student_id,jdbcType=BIGINT},#{change_code,jdbcType=BIGINT},#{description,jdbcType=CLOB})
+    </insert>
+
 </mapper>
