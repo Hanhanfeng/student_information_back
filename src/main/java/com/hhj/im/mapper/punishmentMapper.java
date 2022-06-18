@@ -12,4 +12,10 @@ public interface punishmentMapper {
     int findPunishmentCount(Map map);
 
     Integer deletePunishment(String punishment_ids);
+
+    Integer getPCode(String levels);
+
+    Integer addPunishment(s_punishment s_punishment);
+
+    Integer setPunishmentTF(s_punishment s_punishment);
 }

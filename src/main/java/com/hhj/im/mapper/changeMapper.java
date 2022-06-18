@@ -15,4 +15,6 @@ public interface changeMapper {
     int deleteChange(String change_id);
 
     s_change findChange(Long change_id);
+
+    Integer getCCode(String changeDes);
 }

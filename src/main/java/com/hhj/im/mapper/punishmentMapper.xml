@@ -58,4 +58,19 @@
         delete from s_punishment where punishment_id in (${punishment_ids})
     </delete>
 
+    <select id="getPCode" resultType="int" parameterType="java.lang.String">
+        select p_code from s_punishment_codes
+        where p_description = #{levels}
+    </select>
+
+    <insert id="addPunishment" parameterType="com.hhj.im.entity.s_punishment">
+        insert into s_punishment(student_id,levels,ratify,description)
+            value (#{student_id,jdbcType=BIGINT},#{levels,jdbcType=BIGINT},#{ratify,jdbcType=VARCHAR},#{description,jdbcType=CLOB})
+    </insert>
+
+    <update id="setPunishmentTF" parameterType="com.hhj.im.entity.s_punishment">
+        update s_punishment set ratify = #{ratify,jdbcType=VARCHAR}
+        where punishment_id = #{punishment_id,jdbcType=BIGINT}
+    </update>
+
 </mapper>

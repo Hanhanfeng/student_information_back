@@ -41,4 +41,9 @@ public class changeServiceImpl implements changeService {
     public s_change findChange(Long change_id) {
         return changeMapper.findChange(change_id);
     }
+
+    @Override
+    public Integer getCCode(String changeDes) {
+        return changeMapper.getCCode(changeDes);
+    }
 }

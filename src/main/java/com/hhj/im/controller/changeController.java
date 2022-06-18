@@ -1,6 +1,7 @@
 package com.hhj.im.controller;
 
 import com.hhj.im.entity.s_change;
+import com.hhj.im.entity.s_reward;
 import com.hhj.im.service.changeService;
 import com.hhj.im.util.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,18 @@ public class changeController {
     }
     @RequestMapping(value = "/addChange",method = RequestMethod.POST)
     public void addChange(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
+        String student_id = data.get("id");
+        String changeDes = data.get("changeDes");
+        String description = data.get("description");
+        Integer change_code = changeService.getCCode(changeDes);
 
+        s_change sChange = new s_change();
+        sChange.setStudent_id(Long.parseLong(student_id));
+        sChange.setChange_code(change_code);
+        sChange.setDescription(description);
+
+        int result = changeService.addChange(sChange);
+        response.getWriter().write(JSON.encode(result));
     }
     @RequestMapping(value = "/deleteChange",method = RequestMethod.DELETE)
     public void deleteChange(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,Long[]> data) throws Exception{

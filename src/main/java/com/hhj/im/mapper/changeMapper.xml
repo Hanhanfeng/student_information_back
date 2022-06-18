@@ -66,4 +66,9 @@
         and change_id = #{change_id,jdbcType=BIGINT}
     </select>
 
+    <select id="getCCode" resultType="int" parameterType="java.lang.String">
+        select c_code from s_change_codes
+        where c_description = #{changeDes}
+    </select>
+
 </mapper>

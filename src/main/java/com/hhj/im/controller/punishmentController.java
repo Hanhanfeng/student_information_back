@@ -1,6 +1,7 @@
 package com.hhj.im.controller;
 
 import com.hhj.im.entity.s_punishment;
+import com.hhj.im.entity.s_reward;
 import com.hhj.im.service.punishmentService;
 import com.hhj.im.util.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,20 @@ public class punishmentController {
     //添加惩罚信息
     @RequestMapping(value = "/addPunishment",method = RequestMethod.POST)
     public void addPunishment(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
+        String student_id = data.get("id");
+        String levels = data.get("levels");
+        String ratify = data.get("ratify");
+        String description = data.get("description");
+        Integer level = punishmentService.getPCode(levels);
 
+        s_punishment s_punishment = new s_punishment();
+        s_punishment.setStudent_id(Long.parseLong(student_id));
+        s_punishment.setLevels(level);
+        s_punishment.setRatify(ratify);
+        s_punishment.setDescription(description);
+
+        int result = punishmentService.addPunishment(s_punishment);
+        response.getWriter().write(JSON.encode(result));
     }
 
     //删除惩罚信息
@@ -77,15 +91,17 @@ public class punishmentController {
 
     }
 
-    //更新惩罚信息
-    @RequestMapping(value = "updatePunishment",method = RequestMethod.POST)
-    public void updatePunishment(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data)throws Exception{
-
-    }
 
     //将惩罚置无效
-    @RequestMapping
-    public void setPunishmentF(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data)throws Exception{
+    @RequestMapping("/setPunishmentTF")
+    public void setPunishmentTF(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data)throws Exception{
+        String punishment_id = data.get("id");
+        String ratify = data.get("ratify");
+        s_punishment s_punishment = new s_punishment();
+        s_punishment.setPunishment_id(Long.parseLong(punishment_id));
+        s_punishment.setRatify(ratify);
 
+        int result = punishmentService.setPunishmentTF(s_punishment);
+        response.getWriter().write(JSON.encode(result));
     }
 }

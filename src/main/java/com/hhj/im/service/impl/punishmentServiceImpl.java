@@ -31,4 +31,19 @@ public class punishmentServiceImpl implements punishmentService {
     public Integer deletePunishment(String punishment_ids) {
         return punishmentMapper.deletePunishment(punishment_ids);
     }
+
+    @Override
+    public Integer getPCode(String levels) {
+        return punishmentMapper.getPCode(levels);
+    }
+
+    @Override
+    public Integer addPunishment(s_punishment s_punishment) {
+        return punishmentMapper.addPunishment(s_punishment);
+    }
+
+    @Override
+    public Integer setPunishmentTF(s_punishment s_punishment) {
+        return punishmentMapper.setPunishmentTF(s_punishment);
+    }
 }

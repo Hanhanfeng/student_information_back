@@ -17,4 +17,5 @@ public interface changeService {
     s_change findChange(Long change_id);
 
 
+    Integer getCCode(String changeDes);
 }
