@@ -43,7 +43,10 @@
         <if test="student_id != null and student_id != ''">
             and student.student_id = #{student_id,jdbcType=BIGINT}
         </if>
-        limit #{rowNum},#{pageSize}
+        <if test="rowNum!=null and rowNum!='' and pageSize!=null and Pagesize!=''">
+            limit #{rowNum},#{pageSize}
+        </if>
+
     </select>
 
     <select id="findStudentCount" resultType="int" parameterType="map" >

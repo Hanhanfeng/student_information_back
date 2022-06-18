@@ -91,7 +91,6 @@ public class punishmentController {
 
     }
 
-
     //将惩罚置无效
     @RequestMapping("/setPunishmentTF")
     public void setPunishmentTF(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data)throws Exception{

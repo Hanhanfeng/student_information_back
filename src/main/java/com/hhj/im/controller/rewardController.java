@@ -51,7 +51,7 @@ public class rewardController {
         response.getWriter().write(json);
     }
 
-
+    //添加奖励
     @RequestMapping(value = "/addReward",method = RequestMethod.POST)
     public void addReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
         String student_id = data.get("id");
@@ -68,6 +68,8 @@ public class rewardController {
         response.getWriter().write(JSON.encode(result));
 
     }
+
+    //删除奖励记录
     @RequestMapping(value = "/deleteReward",method = RequestMethod.DELETE)
     public void deleteReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,Long[]> data) throws Exception{
         Long[] reward_id = data.get("ids");
@@ -82,6 +84,8 @@ public class rewardController {
         int result = rewardService.deleteReward(reward_ids);
         response.getWriter().write(JSON.encode(result));
     }
+
+    //通过id获取奖励信息
     @RequestMapping(value = "/findReward",method = RequestMethod.POST)
     public void findReward(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
 

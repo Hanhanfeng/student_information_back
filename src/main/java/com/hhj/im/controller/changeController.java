@@ -22,7 +22,7 @@ import java.util.Map;
 public class changeController {
     @Autowired
     private changeService changeService;
-
+    //获取学籍异动列表
     @RequestMapping(value = "/findChangeList",method = RequestMethod.POST)
     public void findChangeList(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
         String pageIndex=data.get("pageNum");//页面索引，0：第一页，1：第二页，依次类推
@@ -49,6 +49,8 @@ public class changeController {
         //向前端返回数据
         response.getWriter().write(json);
     }
+
+    //添加学籍异动情况
     @RequestMapping(value = "/addChange",method = RequestMethod.POST)
     public void addChange(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
         String student_id = data.get("id");
@@ -64,6 +66,8 @@ public class changeController {
         int result = changeService.addChange(sChange);
         response.getWriter().write(JSON.encode(result));
     }
+
+    //删除学籍异动记录
     @RequestMapping(value = "/deleteChange",method = RequestMethod.DELETE)
     public void deleteChange(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,Long[]> data) throws Exception{
         Long[] change_id = data.get("ids");
@@ -77,6 +81,8 @@ public class changeController {
         }
         changeService.deleteChange(change_ids);
     }
+
+    //通过id获取相应学籍异动记录
     @RequestMapping(value = "/findChange",method = RequestMethod.POST)
     public void findChange(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> data) throws Exception{
         String change_id = data.get("id");

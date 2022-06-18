@@ -1,9 +1,10 @@
 package com.hhj.im.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.hhj.im.entity.s_class;
-import com.hhj.im.entity.s_dept;
-import com.hhj.im.entity.student;
+import com.hhj.im.entity.*;
+import com.hhj.im.service.changeService;
+import com.hhj.im.service.punishmentService;
+import com.hhj.im.service.rewardService;
 import com.hhj.im.service.studentService;
 import com.hhj.im.util.JSON;
 import com.hhj.im.util.Page;
@@ -29,6 +30,12 @@ import java.util.Map;
 public class studentController {
     @Autowired
     private studentService studentService;
+    @Autowired
+    private changeService changeService;
+    @Autowired
+    private rewardService rewardService;
+    @Autowired
+    private punishmentService punishmentService;
 
     //获取学生信息列表，可传入分页信息和搜索信息（name，id）
     @RequestMapping(value = "/findStudentList",method = RequestMethod.POST)
@@ -187,7 +194,31 @@ public class studentController {
         response.getWriter().write(json);
     }
 
+    //通过学号获取学生的详细信息
+    @RequestMapping(value = "findStudentAllInfo",method = RequestMethod.POST)
+    public void findStudentAllInfo(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String>data) throws Exception{
+        String student_id = data.get("id");
+        student student = studentService.findStudent(Long.parseLong(student_id));
 
+        HashMap mapParam=new HashMap();
+        mapParam.put("pageSize", null);
+        mapParam.put("rowNum", null);
+        mapParam.put("student_name", null);
+        mapParam.put("student_id",student_id);
 
+        List<s_change> changes = changeService.findChangeList(mapParam);
+        List<s_reward> rewards = rewardService.findRewardList(mapParam);
+        List<s_punishment> punishments = punishmentService.findPunishmentList(mapParam);
+
+        HashMap map = new HashMap();
+        map.put("student",student);
+        map.put("change",changes);
+        map.put("reward",rewards);
+        map.put("punishment",punishments);
+
+        String json = JSON.encode(map);
+        response.getWriter().write(json);
+
+    }
 
 }
